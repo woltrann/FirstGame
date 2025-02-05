@@ -1,4 +1,0 @@
-repository "FirstGame@DaliiGames@cloud"
-  path "/"
-    br "/main"
-    co "/main"
