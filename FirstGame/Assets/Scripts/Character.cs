@@ -3,31 +3,23 @@ using UnityEngine;
 public class Characher : MonoBehaviour
 {
     private Rigidbody karakterRb;
-    private Animator karakterAnim;
-   
-
-    public float forwardSpeed = 5f; // Ýleri hýz
-    public float sideSpeed = 5f;    // Sað-Sol hýz
-
-    void Start()
-    {
-        
-    }
+    public float sideSpeed = 5f;
+    private bool moveRight = false;
+    private bool moveLeft = false;
 
     void Update()
     {
-        transform.Translate(Vector3.left * forwardSpeed * Time.deltaTime);
+        if (moveRight) MoveCharacter(Vector3.forward);
+        if (moveLeft) MoveCharacter(Vector3.back);
     }
-
-    public void MoveLeft()
+    private void MoveCharacter(Vector3 direction)
     {
-        Debug.Log("Sola döndü");
-        transform.Translate(Vector3.left * sideSpeed * Time.deltaTime);
+        float newXPosition = transform.position.z + direction.z * sideSpeed * Time.deltaTime;
+        newXPosition = Mathf.Clamp(newXPosition, -5, 5);
+        transform.position = new Vector3(transform.position.x,transform.position.y, newXPosition  );
     }
-
-    public void MoveRight()
-    {
-        Debug.Log("Saða döndü");
-        transform.Translate(Vector3.right * sideSpeed * Time.deltaTime);
-    }
+    public void OnRightButtonDown() => moveRight = true;
+    public void OnRightButtonUp() => moveRight = false;
+    public void OnLeftButtonDown() => moveLeft = true;
+    public void OnLeftButtonUp() => moveLeft = false;
 }

@@ -8,9 +8,9 @@ public class CameraControl : MonoBehaviour
     public AudioMixer audioMixer;
     public Slider backgroundSlider;
     public Slider sfxSlider; 
-    public Animator cameraAnimator;     // Kameranın Animator bileşeni
-    //public Animator characterAnimator;  // Karakterin Animator bileşeni
+    public Animator cameraAnimator;     
 
+    public GameObject karakter;
     public GameObject mainPanel;
     public GameObject pausePanel;
     public GameObject settingsPanel;
@@ -20,27 +20,29 @@ public class CameraControl : MonoBehaviour
     public Button turkishButton;
     public Button englishButton;
     public Button startButton;
-    public float forwardSpeed = 100f;
-   
 
     void Start()
     {
         Time.timeScale = 1f;
         pauseButton.SetActive(false);
         startButton.onClick.AddListener(StartCameraAnimation);
-        //characterAnimator.SetFloat("Speed_f",0.1f);
         backgroundSlider.onValueChanged.AddListener(SetBackgroundVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         turkishButton.onClick.AddListener(() => SetLanguage("tr"));
         englishButton.onClick.AddListener(() => SetLanguage("en"));
     }
+
     void StartCameraAnimation()
     {
+        GameObject[] traps = GameObject.FindGameObjectsWithTag("Trap");
+        foreach (GameObject trap in traps)
+        {
+            ObjectMovement trapController = trap.GetComponent<ObjectMovement>();
+            trapController.StartGame();  
+        }
         pauseButton.SetActive(true);
         mainPanel.SetActive(false);
         cameraAnimator.SetTrigger("start_trg");
-        //characterAnimator.SetFloat("Speed_f", 0.5f);
-        Debug.Log("Camera animation started");
     }
 
     public void PausePanelOpen()
