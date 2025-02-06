@@ -50,7 +50,6 @@ public class CameraControl : MonoBehaviour
             GroundLooper floorController=floor.GetComponent<GroundLooper>();
             floorController.FloorMovement();
         }
-        //spawn =GetComponent<Character>();
         spawn.SpawnTraps();
 
         pauseButton.SetActive(true);
