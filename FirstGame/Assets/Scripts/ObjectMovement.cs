@@ -5,23 +5,15 @@ using UnityEngine.UI;
 public class ObjectMovement : MonoBehaviour
 {
     public int speed;
-    public bool move=false;
-
+    public bool move=true;
+    
     void Update()
     {
-        if (move) 
-        { 
-            Move();
-
+        if (move) transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (transform.position.x > 0)
+        {
+            Destroy(gameObject);
         }
     }
-    public void Move()
-    {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
-
-    }
-    public void StartGame()
-    {
-        move = true;
-    }
+    public void StartGame() => move = true;
 }

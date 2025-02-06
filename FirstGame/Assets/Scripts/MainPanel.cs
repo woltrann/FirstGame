@@ -3,6 +3,7 @@ using UnityEngine.Audio;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
+
 public class CameraControl : MonoBehaviour
 {
     public AudioMixer audioMixer;
@@ -21,8 +22,11 @@ public class CameraControl : MonoBehaviour
     public Button englishButton;
     public Button startButton;
 
+    private Character spawn;
+
     void Start()
     {
+        spawn=GameObject.Find("virus").GetComponent<Character>();
         Time.timeScale = 1f;
         pauseButton.SetActive(false);
         startButton.onClick.AddListener(StartCameraAnimation);
@@ -40,9 +44,20 @@ public class CameraControl : MonoBehaviour
             ObjectMovement trapController = trap.GetComponent<ObjectMovement>();
             trapController.StartGame();  
         }
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
+        foreach (GameObject floor in floors)
+        {
+            GroundLooper floorController=floor.GetComponent<GroundLooper>();
+            floorController.FloorMovement();
+        }
+        //spawn =GetComponent<Character>();
+        spawn.SpawnTraps();
+
         pauseButton.SetActive(true);
         mainPanel.SetActive(false);
         cameraAnimator.SetTrigger("start_trg");
+
+        
     }
 
     public void PausePanelOpen()
@@ -69,6 +84,4 @@ public class CameraControl : MonoBehaviour
         Time.timeScale = 1f;
     }
     public void ExitGame() => Application.Quit();
-
-    
 }
