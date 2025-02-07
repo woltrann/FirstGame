@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HumanScript : MonoBehaviour
@@ -5,10 +6,12 @@ public class HumanScript : MonoBehaviour
     private Animator animator;
     public int speed;
     public bool move = true;
+    private MainControl zombi; 
 
-    private void Start()
+    void Start()
     {
         animator = GetComponent<Animator>();
+        zombi = GameObject.Find("MainControl").GetComponent<MainControl>();
     }
     void Update()
     {
@@ -19,7 +22,8 @@ public class HumanScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            animator.SetBool("IsTouched", true);  
+            animator.SetBool("IsTouched", true);
+            zombi.SkorArtir();
         }
     }
 }

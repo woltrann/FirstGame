@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 public class Character : MonoBehaviour
 {
     private Rigidbody karakterRb;
+    public ParticleSystem Buff;
+    public ParticleSystem Debuff;
     public float sideSpeed = 5f;
     private bool moveRight = false;
     private bool moveLeft = false;
@@ -27,8 +29,14 @@ public class Character : MonoBehaviour
     public void OnLeftButtonDown() => moveLeft = true;
     public void OnLeftButtonUp() => moveLeft = false;
 
-    public void SpawnTraps() => StartCoroutine(Spawn());
-    public IEnumerator Spawn()
+    public void SpawnObject()
+    {
+        StartCoroutine(SpawnTraps());
+        StartCoroutine(SpawnTrees());
+        StartCoroutine(SpawnHuman());
+    }
+
+    private IEnumerator SpawnTraps()
     {
         while (true)
         {
@@ -37,18 +45,50 @@ public class Character : MonoBehaviour
             Instantiate(traps[randomTrapIndex], spawnPosition, Quaternion.identity);
             float spawnInterval = Random.Range(2f, 4f);     // Spawnlama aralýðýný belirle
             yield return new WaitForSeconds(spawnInterval);     // Verilen süre kadar bekle
-
-            float zPosition = Random.Range(0,2) == 0 ? 11f : -11f;
+        } 
+    }
+    private IEnumerator SpawnTrees()
+    {
+        while (true)
+        {
+            float zPosition = Random.Range(0, 2) == 0 ? 13f : -11f;
             Vector3 spawnPosition2 = new Vector3(-230, 2.4f, zPosition);
-            int randomForestsIndex=Random.Range(0, forests.Length);
+            int randomForestsIndex = Random.Range(0, forests.Length);
             Instantiate(forests[randomForestsIndex], spawnPosition2, Quaternion.identity);
             float spawnInterval2 = Random.Range(1f, 2f);
             yield return new WaitForSeconds(spawnInterval2);
-
-            int randomHumanIndex = Random.Range(0, humans.Length); 
+        }
+    }
+    private IEnumerator SpawnHuman()
+    {
+        while (true)
+        {
+            Vector3 spawnPosition = new Vector3(-230, 2.5f, Random.Range(-2.5f, 2.5f));
+            int randomHumanIndex = Random.Range(0, humans.Length);
             Instantiate(humans[randomHumanIndex], spawnPosition, Quaternion.identity);
-            float spawnInterval3 = Random.Range(1f, 3f);     
-            yield return new WaitForSeconds(spawnInterval3);     
-        } 
+            float spawnInterval3 = Random.Range(2f, 3f);
+            yield return new WaitForSeconds(spawnInterval3);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Human"))
+        {
+            Debuff.Stop();
+            Debuff.Clear();
+            Buff.Stop();
+            Buff.Clear();
+            Buff.Play();
+        }
+        if (other.CompareTag("Trap"))
+        {
+            Buff.Stop();
+            Buff.Clear();
+            Debuff.Stop();
+            Debuff.Clear();
+            Debuff.Play();
+        }
     }
 }
