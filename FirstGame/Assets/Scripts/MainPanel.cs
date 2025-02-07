@@ -2,14 +2,13 @@
 using UnityEngine.Audio;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
-
-
 public class CameraControl : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public Slider backgroundSlider;
     public Slider sfxSlider; 
-    public Animator cameraAnimator;     
+    public Animator cameraAnimator;    
+    private Character spawn; 
 
     public GameObject karakter;
     public GameObject mainPanel;
@@ -22,8 +21,6 @@ public class CameraControl : MonoBehaviour
     public Button englishButton;
     public Button startButton;
 
-    private Character spawn;
-
     void Start()
     {
         spawn=GameObject.Find("virus").GetComponent<Character>();
@@ -35,7 +32,6 @@ public class CameraControl : MonoBehaviour
         turkishButton.onClick.AddListener(() => SetLanguage("tr"));
         englishButton.onClick.AddListener(() => SetLanguage("en"));
     }
-
     void StartCameraAnimation()
     {
         GameObject[] traps = GameObject.FindGameObjectsWithTag("Trap");
@@ -55,7 +51,6 @@ public class CameraControl : MonoBehaviour
         mainPanel.SetActive(false);
         cameraAnimator.SetTrigger("start_trg");
     }
-
     public void PausePanelOpen()
     {
         pausePanel.SetActive(true);

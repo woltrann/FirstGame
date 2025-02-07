@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 using TMPro.Examples;
 using Unity.VisualScripting;
-
-
 public class Character : MonoBehaviour
 {
     private Rigidbody karakterRb;
@@ -12,6 +10,7 @@ public class Character : MonoBehaviour
     private bool moveLeft = false;
     public GameObject[] traps;
     public GameObject[] forests;
+    public GameObject[] humans;
     void FixedUpdate()
     {
         if (moveRight) MoveCharacter(Vector3.forward);
@@ -45,8 +44,11 @@ public class Character : MonoBehaviour
             Instantiate(forests[randomForestsIndex], spawnPosition2, Quaternion.identity);
             float spawnInterval2 = Random.Range(1f, 2f);
             yield return new WaitForSeconds(spawnInterval2);
+
+            int randomHumanIndex = Random.Range(0, humans.Length); 
+            Instantiate(humans[randomHumanIndex], spawnPosition, Quaternion.identity);
+            float spawnInterval3 = Random.Range(1f, 3f);     
+            yield return new WaitForSeconds(spawnInterval3);     
         } 
     }
-
-
 }

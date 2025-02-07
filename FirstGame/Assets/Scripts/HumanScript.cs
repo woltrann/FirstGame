@@ -10,23 +10,16 @@ public class HumanScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-
     void Update()
     {
-        if (move) transform.Translate(Vector3.right * speed * Time.deltaTime);
-        if (transform.position.x > 0)
-        {
-            Destroy(gameObject);
-        }
+        if (move)    transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (transform.position.x > 0)   Destroy(gameObject);  
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // Kontrol ettiðin karakterin tag'ýný Player yap
+        if (other.CompareTag("Player"))
         {
-            animator.SetBool("IsTouched", true);
-            Destroy(gameObject);
+            animator.SetBool("IsTouched", true);  
         }
     }
-
-
 }

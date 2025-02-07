@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a19a1b68ad79e34eb8d7b27be28183f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  move: 0
+  speed: 20
+  move: 1
 --- !u!1 &5216175527088923336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5373189698150959999, guid: 57b06f2891b19ea4c8e980c836030576, type: 3}
