@@ -12,7 +12,6 @@ public class Character : MonoBehaviour
     private bool moveLeft = false;
     public GameObject[] traps;
     public GameObject[] forests;
-  
     void FixedUpdate()
     {
         if (moveRight) MoveCharacter(Vector3.forward);
@@ -30,7 +29,6 @@ public class Character : MonoBehaviour
     public void OnLeftButtonUp() => moveLeft = false;
 
     public void SpawnTraps() => StartCoroutine(Spawn());
-    //public void SpawnTree() => StartCoroutine(Spawn());
     public IEnumerator Spawn()
     {
         while (true)
@@ -49,4 +47,6 @@ public class Character : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval2);
         } 
     }
+
+
 }

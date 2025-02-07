@@ -51,12 +51,9 @@ public class CameraControl : MonoBehaviour
             floorController.FloorMovement();
         }
         spawn.SpawnTraps();
-
         pauseButton.SetActive(true);
         mainPanel.SetActive(false);
         cameraAnimator.SetTrigger("start_trg");
-
-        
     }
 
     public void PausePanelOpen()
