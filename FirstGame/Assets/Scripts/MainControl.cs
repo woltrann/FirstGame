@@ -24,6 +24,9 @@ public class MainControl : MonoBehaviour
     public TextMeshProUGUI skor;
     public TextMeshProUGUI skorText;
     public int score = 0;
+    public int count = 1;
+    public static float x = 1f; 
+    public static float y = 1f; 
 
     void Start()
     {
@@ -65,6 +68,15 @@ public class MainControl : MonoBehaviour
     {
         score += 10;
         skor.text = score.ToString();
+        count++;
+        //Debug.Log("COunt: " + count);
+        if (count >= 11)
+        {
+            x = Mathf.Max(0.1f, x - 0.1f);
+            y += 0.1f;
+            count = 1;
+            Debug.Log(x + " - " + y);
+        }
     }
 
     public void PausePanelOpen()

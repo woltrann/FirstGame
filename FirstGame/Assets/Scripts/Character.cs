@@ -4,7 +4,6 @@ using TMPro.Examples;
 using Unity.VisualScripting;
 public class Character : MonoBehaviour
 {
-    private Rigidbody karakterRb;
     public ParticleSystem Buff;
     public ParticleSystem Debuff;
     public float sideSpeed = 5f;
@@ -20,7 +19,7 @@ public class Character : MonoBehaviour
     }
     private void MoveCharacter(Vector3 direction)
     {
-        float newXPosition = transform.position.z + direction.z * sideSpeed * Time.deltaTime;
+        float newXPosition = transform.position.z + direction.z * sideSpeed * MainControl.y * Time.deltaTime;
         newXPosition = Mathf.Clamp(newXPosition, -5, 5);
         transform.position = new Vector3(transform.position.x,transform.position.y, newXPosition  );
     }
@@ -35,7 +34,6 @@ public class Character : MonoBehaviour
         StartCoroutine(SpawnTrees());
         StartCoroutine(SpawnHuman());
     }
-
     private IEnumerator SpawnTraps()
     {
         while (true)
@@ -44,7 +42,8 @@ public class Character : MonoBehaviour
             int randomTrapIndex = Random.Range(0, traps.Length); // Rasgele tuzak seçimi
             Instantiate(traps[randomTrapIndex], spawnPosition, Quaternion.identity);
             float spawnInterval = Random.Range(2f, 4f);     // Spawnlama aralýðýný belirle
-            yield return new WaitForSeconds(spawnInterval);     // Verilen süre kadar bekle
+            yield return new WaitForSeconds(spawnInterval * MainControl.x);     // Verilen süre kadar bekle
+            //Debug.Log("x Deðeri: " + MainControl.x);
         } 
     }
     private IEnumerator SpawnTrees()
@@ -56,7 +55,7 @@ public class Character : MonoBehaviour
             int randomForestsIndex = Random.Range(0, forests.Length);
             Instantiate(forests[randomForestsIndex], spawnPosition2, Quaternion.identity);
             float spawnInterval2 = Random.Range(1f, 2f);
-            yield return new WaitForSeconds(spawnInterval2);
+            yield return new WaitForSeconds(spawnInterval2 * MainControl.x);
         }
     }
     private IEnumerator SpawnHuman()
@@ -67,11 +66,9 @@ public class Character : MonoBehaviour
             int randomHumanIndex = Random.Range(0, humans.Length);
             Instantiate(humans[randomHumanIndex], spawnPosition, Quaternion.identity);
             float spawnInterval3 = Random.Range(2f, 3f);
-            yield return new WaitForSeconds(spawnInterval3);
+            yield return new WaitForSeconds(spawnInterval3 * MainControl.x);
         }
     }
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Human"))

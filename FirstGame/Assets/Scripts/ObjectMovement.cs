@@ -9,7 +9,7 @@ public class ObjectMovement : MonoBehaviour
     
     void Update()
     {
-        if (move) transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (move) transform.Translate(Vector3.right * speed * MainControl.y * Time.deltaTime);
         if (transform.position.x > 0)
         {
             Destroy(gameObject);
