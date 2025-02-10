@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlaySoundOnCollision : MonoBehaviour
 {
     public AudioSource audioSource;
-    public string targetTag = "ENGEL"; // Hedef nesnenin etiketi
+    public string targetTag = "Trap"; // Hedef nesnenin etiketi
 
     private void Start()
     {
@@ -20,6 +20,7 @@ public class PlaySoundOnCollision : MonoBehaviour
             if (audioSource != null && !audioSource.isPlaying)
             {
                 audioSource.Play();
+                
             }
         }
     }

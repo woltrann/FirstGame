@@ -6,27 +6,25 @@ public class Character : MonoBehaviour
 {
     public ParticleSystem Buff;
     public ParticleSystem Debuff;
-    public float sideSpeed = 5f;
-    private bool moveRight = false;
-    private bool moveLeft = false;
+    public float sideSpeed = 5000f; //5000 yaptým inspectorden 5000 olarak düzeltilecek
+    public float smoothFactor = 0.2f; //eklendi
+    private float targetZPosition; //eklendi
+    private Vector3 velocity = Vector3.zero; //eklendi
     public GameObject[] traps;
     public GameObject[] forests;
     public GameObject[] humans;
-    void FixedUpdate()
+
+    void Update() //eklendi
     {
-        if (moveRight) MoveCharacter(Vector3.forward);
-        if (moveLeft) MoveCharacter(Vector3.back);
+        if (Input.GetMouseButton(0))
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            targetZPosition = Mathf.Clamp(transform.position.z + mouseX * sideSpeed * Time.deltaTime, -5, 5);
+        }
+
+        Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, targetZPosition);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothFactor);
     }
-    private void MoveCharacter(Vector3 direction)
-    {
-        float newXPosition = transform.position.z + direction.z * sideSpeed * MainControl.y * Time.deltaTime;
-        newXPosition = Mathf.Clamp(newXPosition, -5, 5);
-        transform.position = new Vector3(transform.position.x,transform.position.y, newXPosition  );
-    }
-    public void OnRightButtonDown() => moveRight = true;
-    public void OnRightButtonUp() => moveRight = false;
-    public void OnLeftButtonDown() => moveLeft = true;
-    public void OnLeftButtonUp() => moveLeft = false;
 
     public void SpawnObject()
     {
@@ -44,7 +42,7 @@ public class Character : MonoBehaviour
             float spawnInterval = Random.Range(2f, 4f);     // Spawnlama aralýðýný belirle
             yield return new WaitForSeconds(spawnInterval * MainControl.x);     // Verilen süre kadar bekle
             //Debug.Log("x Deðeri: " + MainControl.x);
-        } 
+        }
     }
     private IEnumerator SpawnTrees()
     {
