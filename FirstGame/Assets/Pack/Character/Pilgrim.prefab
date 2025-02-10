@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 8188826820878056699}
   m_Layer: 0
   m_Name: Pilgrim
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

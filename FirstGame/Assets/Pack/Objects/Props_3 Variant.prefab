@@ -10,11 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3991148410959839975, guid: e1f3eb9b7c62ede409fa1a4d6770ef88, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 4569981433367132228, guid: e1f3eb9b7c62ede409fa1a4d6770ef88, type: 3}
       propertyPath: m_Name
       value: Props_3 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890193254155768811, guid: e1f3eb9b7c62ede409fa1a4d6770ef88, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5714130048857837943, guid: e1f3eb9b7c62ede409fa1a4d6770ef88, type: 3}
       propertyPath: m_LocalPosition.x

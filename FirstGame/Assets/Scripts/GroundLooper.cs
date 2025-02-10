@@ -11,13 +11,13 @@ public class GroundLooper : MonoBehaviour
     {
         if (floor)
         {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed * MainControl.y * Time.deltaTime);
 
             // Zemin geri döndüðünde baþa al
             if (transform.position.x > resetX)
             {
                 Vector3 newPos = transform.position;
-                newPos.x = startX;
+                newPos.x = startX+MainControl.y;
                 transform.position = newPos;
             }
         }

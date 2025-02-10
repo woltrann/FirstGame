@@ -59,6 +59,10 @@ MonoBehaviour:
     m_Key: Oyun Bitti
     m_Metadata:
       m_Items: []
+  - m_Id: 2741484515246080
+    m_Key: Skor
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
