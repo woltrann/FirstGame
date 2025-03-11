@@ -38,8 +38,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blend: 0
-    - _DstBlend: 1
-    - _DstBlendAlpha: 1
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _Mode: 2
     - _SrcBlend: 5
     - _Surface: 1

@@ -23,7 +23,7 @@ public class HumanScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             animator.SetBool("IsTouched", true);
-            zombi.SkorArtir();
+            //zombi.SkorArtir();
         }
     }
 }

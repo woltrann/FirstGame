@@ -7,6 +7,9 @@ TagManager:
   - Trap
   - Floor
   - Human
+  - Ball
+  - Wall
+  - BallPlus
   layers:
   - Default
   - TransparentFX
