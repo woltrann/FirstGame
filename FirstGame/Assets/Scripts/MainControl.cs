@@ -12,6 +12,11 @@ public class MainControl : MonoBehaviour
     public Animator EnvanterAnimator;
     private Character spawn;
     private TopAtar topAtar;
+    public GameObject[] panels;
+    public Button[] panelButtons; //panel butonlarý
+    public GameObject buttonsPanel;
+    private Vector3 defaultScale = new Vector3(1f, 1f, 1f);
+    private Vector3 highlightedScale = new Vector3(1.4f, 1.4f, 4f); // Buton büyüklüðü
 
     public int Cam;
     public TextMeshProUGUI CamText;
@@ -66,18 +71,31 @@ public class MainControl : MonoBehaviour
         spawn = GameObject.Find("Cannon").GetComponent<Character>();
         topAtar = GameObject.Find("TopAtar").GetComponent<TopAtar>();
         Time.timeScale = 1f;
+        panels[2].SetActive(true);
+        panelButtons[2].transform.localScale = highlightedScale;
         LeftButton.SetActive(false);
         RightButton.SetActive(false);
         pauseButton.SetActive(false);
         skor.gameObject.SetActive(false);
         skorText.gameObject.SetActive(false);
         ballCount.gameObject.SetActive(false);
+        buttonsPanel.SetActive(true);
         startButton.onClick.AddListener(StartCameraAnimation);
         EnvanterAnimator = GameObject.Find("EnvanterPanel").GetComponent<Animator>(); 
         backgroundSlider.onValueChanged.AddListener(SetBackgroundVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         turkishButton.onClick.AddListener(() => SetLanguage("tr"));
         englishButton.onClick.AddListener(() => SetLanguage("en"));
+    }
+    public void ShowPanel(int index)
+    {
+        for (int i = 0; i < panels.Length; i++)
+        {
+            bool isActive = (i == index);
+            panels[i].SetActive(i == index); // Sadece seçilen panel aktif, diðerleri kapalý
+            if (isActive) panelButtons[i].transform.localScale = highlightedScale; // Butonu büyüt
+            else panelButtons[i].transform.localScale = defaultScale; // Eski haline getir
+        }
     }
     void StartCameraAnimation()
     {
@@ -93,6 +111,7 @@ public class MainControl : MonoBehaviour
             GroundLooper floorController = floor.GetComponent<GroundLooper>();
             floorController.FloorMovement();
         }
+        ballSayisi=5;
         ballText.text = ballSayisi.ToString();
         spawn.SpawnObject();
         LeftButton.SetActive(true);
@@ -104,6 +123,8 @@ public class MainControl : MonoBehaviour
         skor.text = score.ToString();
         mainPanel.SetActive(false);
         cameraAnimator.SetTrigger("start_trg");
+        buttonsPanel.SetActive(false);
+
     }
 
     public void SkorArtir(int a)
